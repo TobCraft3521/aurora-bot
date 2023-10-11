@@ -1,13 +1,23 @@
 import { REST, Routes } from 'discord.js'
 import { Client, GatewayIntentBits } from 'discord.js'
-const TOKEN = require("./token")
+import TOKEN from "./token.js"
+import lvlsys from "./levelsystem.js"
 const CLIENT_ID = "1161699903697858672"
-const client = new Client({ intents: [GatewayIntentBits.Guilds] })
+const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages] })
+
+lvlsys()
+
+//commands
+import levelsCmd from "./commands/levels.js"
 
 const commands = [
     {
         name: 'ping',
         description: 'Replies with Pong!',
+    },
+    {
+        name: "level",
+        description: "Displays your level"
     }
 ]
 
@@ -28,11 +38,18 @@ client.on('ready', () => {
 });
 
 client.on('interactionCreate', async interaction => {
-    if (!interaction.isChatInputCommand()) return;
+    if (interaction.isChatInputCommand()) {
+        switch (interaction.commandName) {
+            case "level":
+                levelsCmd(interaction)
+                break;
+        }
 
-    if (interaction.commandName === 'ping') {
-        await interaction.reply('Pong!');
     }
 });
+
+client.on("messageCreate", async (e) => {
+    
+})
 
 client.login(TOKEN);
