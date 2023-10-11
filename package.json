@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "a discord bot by TobCraft3521",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -11,5 +12,8 @@
     "bot"
   ],
   "author": "TobCraft3521",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^14.13.0"
+  }
 }
